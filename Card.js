@@ -74,8 +74,6 @@ function CardCombo(config){
 
 
 		this.cards.splice(position,0,card);
-
-
 	};
 
 	/**
@@ -109,7 +107,6 @@ function CardCombo(config){
 		if(!position)
 			position = 0;
 
-
 		return this.cards.splice(position,1)[0];
 	};
 
@@ -140,15 +137,6 @@ function CardCombo(config){
 			tempArray.push(card[0]);
 		}
 		this.cards = tempArray;
-/*
-		var cards = this.cards;
-
-		for (var i = cards.length - 1; i > 0; i--) {
-       		var j = Math.floor(Math.random() * (i + 1));
-        	var tmp = cards[i];
-        	cards[i] = cards[j];
-        	this[j] = tmp;
-        }*/
 	}
 
 	/**
@@ -168,8 +156,6 @@ function CardCombo(config){
 
 		return this.cards.length == 0;
 	}
-
-
 }
 
 /**
@@ -198,13 +184,9 @@ function Hand(config){
 		}
 
 		return cardSelection;
-
 	};
-
-
 }
 Hand.prototype = new CardCombo();
-
 
 /**
 	Card Combination 
@@ -212,14 +194,9 @@ Hand.prototype = new CardCombo();
 
 	This is a group of cards
 */
-function Deck(){
+function Deck(){};
 
-
-};
 Deck.prototype = new CardCombo();
-
-
-
 
 /**
 	Rules Class 
@@ -267,11 +244,8 @@ function Rules(config){
 		}
 
 		return false;
-
 	};
-
 }
-
 
 /**
 	Table Class 
@@ -280,7 +254,6 @@ function Rules(config){
 function Table(config){
 
 	if(!config)config = {};
-
 
 	/**
 		Decks used bythe table
@@ -293,7 +266,6 @@ function Table(config){
 			this.decks.push( new Deck(config.decks[i]) );
 		}
 	};
-
 
 	/**
 		Rules of the table( game )
@@ -328,8 +300,4 @@ function Table(config){
 		Player Data
 	*/
 	this.playerData = config.playerData == null ? [] : config.playerData;
-
-
-
 };
-

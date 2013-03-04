@@ -15,25 +15,25 @@ function Card(config){
 		Card Id 
 		@property USed to identify a card
 	*/
-	this.id = config.id == null ? -1 : config.id;
+	this.id = config.id || -1;
 
 	/**
 		Symbol
 		@property Symbol of the card 1-2-3-J-K-Q-A, etc.
 	*/
-	this.symbol = config.symbol == null ? "nosymbol" : config.symbol;
+	this.symbol = config.symbol || "nosymbol";
 
 	/**
 		Seed
 		@property Seed of the card. Diamond,Spade,Heart,etc
 	*/
-	this.seed = config.seed == null ? "noseed" : config.seed;
+	this.seed = config.seed || "noseed";
 
 	/**
 		Sprite Reference
 		@property Reference to the associated Sprite Object to draw the card
 	*/
-	this.spriteRef = config.spriteRef == null ? null : config.spriteRef;
+	this.spriteRef = config.spriteRef || null;
 
 
 }
@@ -44,7 +44,7 @@ function Card(config){
 */
 function CardCombo(config){
 
-	if(!config)config = {};
+	if(!config)config = {cards:[]};
 
 	/**
 		Cards contained in the Deck
@@ -53,7 +53,7 @@ function CardCombo(config){
 	this.cards = [];
 	if(config.cards != null){
 
-		for(int i=0; i<config.cards.length){
+		for(var i=0; i<config.cards.length; i++){
 
 			this.cards.push( new Card(config.cards[i]) );
 		}
@@ -82,19 +82,35 @@ function CardCombo(config){
 		Removes a card from the Deck
 		@function
 		@param {object} card The card to add to the Deck
-		@param {number} position The position where to put the card on the deck, default on top.
 	*/
-	this.removeCard = function(card,position){
+	this.removeCard = function(card){
 
 		if(!card)return;
+
+		for(var position = 0; position < this.cards.length; position++)
+		{
+			if(this.cards[position] == card)
+			{
+				this.cards.splice(position,1);
+				return card;
+			}
+		}
+
+		return null;
+	};
+
+	/**
+		Removes a card from the Deck
+		@function
+		@param {number} position The position where to put the card on the deck, default on top.
+	*/
+	this.removeCardAt = function(position){
 
 		if(!position)
 			position = 0;
 
 
-		return this.cards.splice(position,1);
-
-
+		return this.cards.splice(position,1)[0];
 	};
 
 
@@ -115,14 +131,24 @@ function CardCombo(config){
 	this.shuffle = function(){
 
 		var cards = this.cards;
+		var tempArray = [];
+		
+		while(cards.length > 0)
+		{
+			var rndId = Math.floor(Math.random() * cards.length);
+			var card = cards.splice(rndId, 1);
+			tempArray.push(card[0]);
+		}
+		this.cards = tempArray;
+/*
+		var cards = this.cards;
 
 		for (var i = cards.length - 1; i > 0; i--) {
        		var j = Math.floor(Math.random() * (i + 1));
         	var tmp = cards[i];
         	cards[i] = cards[j];
         	this[j] = tmp;
-        }
-    
+        }*/
 	}
 
 	/**
@@ -262,7 +288,7 @@ function Table(config){
 	this.decks = [];
 	if(config.decks != null){
 
-		for(int i=0; i<config.decks.length){
+		for(int i=0; i<config.decks.length; i++){
 
 			this.decks.push( new Deck(config.decks[i]) );
 		}
@@ -280,7 +306,7 @@ function Table(config){
 	this.hands = [];
 	if(config.hands != null){
 
-		for(int i=0; i<config.hands.length){
+		for(int i=0; i<config.hands.length; i++){
 
 			this.hands.push( new Hand(config.hands[i]) );
 		}
@@ -292,7 +318,7 @@ function Table(config){
 	this.playerChoices = [];
 	if(config.playerChoices != null){
 
-		for(int i=0; i<config.playerChoices.length){
+		for(int i=0; i<config.playerChoices.length; i++){
 
 			this.playerChoices.push( new CardCombo(config.playerChoices[i]) );
 		}

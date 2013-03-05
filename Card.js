@@ -261,7 +261,7 @@ function Table(config){
 	this.decks = [];
 	if(config.decks != null){
 
-		for(int i=0; i<config.decks.length; i++){
+		for(var i=0; i<config.decks.length; i++){
 
 			this.decks.push( new Deck(config.decks[i]) );
 		}
@@ -278,7 +278,7 @@ function Table(config){
 	this.hands = [];
 	if(config.hands != null){
 
-		for(int i=0; i<config.hands.length; i++){
+		for(var i=0; i<config.hands.length; i++){
 
 			this.hands.push( new Hand(config.hands[i]) );
 		}
@@ -290,7 +290,7 @@ function Table(config){
 	this.playerChoices = [];
 	if(config.playerChoices != null){
 
-		for(int i=0; i<config.playerChoices.length; i++){
+		for(var i=0; i<config.playerChoices.length; i++){
 
 			this.playerChoices.push( new CardCombo(config.playerChoices[i]) );
 		}
